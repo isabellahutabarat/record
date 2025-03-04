@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>records</title>
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0E0D0D;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            height: 100vh;
+            padding: 0;
+        }
+
+        .input-container {
+            padding-top: 2rem;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        #charInput1, #charInput2 {
+            padding: 0.5rem;
+            font-size: 1.5rem;
+            border-radius: 1.5rem;
+            border: 1px solid #ccc;
+        }
+
+        #submitButton {
+            padding: 0.5rem 1rem;
+            font-size: 1.5rem;
+            border-radius: 1.5rem;
+            border: 1px solid #ccc;
+            background-color: #333;
+            color: white;
+            cursor: pointer;
+        }
+
+        #submitButton:hover {
+            background-color: #555;
+        }
+
+        #displayedImage {
+            display: none;
+            width: 70rem;
+            object-fit: contain;
+            align-self: center;
+        }
+
+        /* Media query for mobile screens */
+        @media screen and (max-width: 768px) {
+            #displayedImage {
+                width: 27.4375rem;
+                height: 18.3125rem;
+                margin-top: 8rem;
+            }
+
+            .input-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            #charInput1, #charInput2 {
+                width: 3rem;
+                height: 3rem;
+                font-size: 2rem;
+            }
+
+            #submitButton {
+                font-size: 1.5rem;
+                padding: 0.5rem 2rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Container for the inputs and button -->
+    <div class="input-container">
+        <input type="text" id="charInput1" maxlength="1">
+        <input type="text" id="charInput2" maxlength="1">
+        <button onclick="displayImage()" id="submitButton">now playing</button>
+    </div>
+
+    <!-- Image to display -->
+    <img id="displayedImage" src="" alt="Displayed Image">
+
+    <!-- Image Display Script Below -->
+    <script>
+        function displayImage() {
+            const imgElement = document.getElementById("displayedImage");
+
+            const input1_letter = document.getElementById("charInput1").value.toUpperCase();
+            const input2_letter = document.getElementById("charInput2").value.toUpperCase();
+            
+            const input1_number = input1_letter.charCodeAt(0); 
+            const input2_number = input2_letter.charCodeAt(0); 
+            
+            // Calculate the average ASCII value
+            let avg = (input1_number + input2_number) / 2;
+            
+            // Apply the linear interpolation formula to get the correct year
+            let year = Math.round(((avg - 65) / (90 - 65)) * (2025 - 1970) + 1970);
+
+            console.log("Calculated Year: " + year); 
+
+            // Default image path
+            let imageSrc = "assets/error.png";
+
+            const yearImageMap = {
+                1970: "images/1970.jpg",
+                1971: "assets/1971-sticky-fingers-the-rolling-stones.png",
+                1972: "images/1972.jpg",
+                1973: "images/1973.jpg",
+                1974: "images/1974.jpg",
+                1975: "images/1975.jpg",
+                1976: "assets/1976-hotel-california-eagles.png",
+                1977: "assets/1977-rumours-fleetwood-mac.png",
+                1978: "images/1978.jpg",
+                1979: "assets/1979-wave-patti-smith.png",
+                1980: "assets/1980-remain-in-light-talking-heads.png",
+                1981: "images/1981.jpg",
+                1982: "images/1982.jpg",
+                1983: "images/1983.jpg",
+                1984: "images/1984.jpg",
+                1985: "images/1985.jpg",
+                1986: "assets/1986-the-queen-is-dead-the-smiths.png",
+                1987: "assets/1987-kissme-kissme-kissme-the-cure.png",
+                1988: "images/1988.jpg",
+                1989: "assets/1989-hats-the-blue-nile.png",
+                1990: "assets/1990-heaven-or-las-vegas-cocteau-twins.png",
+                1991: "assets/1991-nevermind-nirvana.png",
+                1992: "assets/1992-wish-the-cure.png",
+                1993: "assets/1993-debut-bjork.png",
+                1994: "assets/1994-downward-spiral-nine-inch-nails.png",
+                1995: "assets/1995-bends-radiohead.png",
+                1996: "assets/1996-tidal-fiona-apple.png",
+                1997: "assets/1997-either-or-elliot-smith.png",
+                1998: "assets/1998-the-miseducation-of-lauryn-hill-lauryn-hill.png",
+                1999: "images/1999.jpg",
+                2000: "images/2000.jpg",
+                2001: "assets/2001-is-this-it-the-strokes.png",
+                2002: "images/2002.jpg",
+                2003: "images/2003.jpg",
+                2004: "images/american_idiot.jpg",
+                2005: "images/2005.jpg",
+                2006: "assets/2006-saturday-night-wrists-deftones.png",
+                2007: "assets/2007-in-rainbows-radiohead.png",
+                2008: "images/2008.jpg",
+                2009: "images/2009.jpg",
+                2010: "images/mbdtf.jpg",
+                2011: "images/2011.jpg",
+                2012: "assets/2012-good-kid-maad-city-kendrick-lamar.png",
+                2013: "assets/2013-doris-earl-sweatshirt.png",
+                2014: "assets/2014-french-exit-tv-girl.png",
+                2015: "assets/2015-if-youre-reading-this-its-too-late.png",
+                2016: "assets/2016-a-moon-shaped-pool-radiohead.png",
+                2017: "assets/2017-slowdive-slowdive.pngg",
+                2018: "assets/2018-die-lit-playboi-carti.png",
+                2019: "assets/2019-when-i-get-home-solange.png",
+                2020: "assets/2020-punisher-pheobe-bridgers.png",
+                2021: "assets/2021-cinema-the-marias.png",
+                2022: "assets/2022-jamie-montell-fish.png",
+                2023: "images/2023.jpg",
+                2024: "assets/2024-two-star-and-the-dream-police-mk.gee.png",
+                2025: "images/2025.jpg"
+            };
+
+            if (yearImageMap[year]) {
+                imageSrc = yearImageMap[year];
+            }
+
+            imgElement.src = imageSrc;
+            imgElement.style.display = "block";
+
+            //error
+            if (input1_letter.length !== 1 || input2_letter.length !== 1 || !input1_letter.match(/[A-Z]/) || !input2_letter.match(/[A-Z]/)) {
+                imgElement.src = "assets/error.png";
+                imgElement.style.display = "block";
+                return;
+            }
+        }
+    </script>
+
+</body>
+</html>
