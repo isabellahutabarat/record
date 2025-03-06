@@ -127,7 +127,7 @@
  
 
 
-    /// Function to find the corresponding decade and genre
+    ///find the corresponding decade and genre
     function getDecadeGenre(input1, input2) {
         let selectedDecade = "";
         let selectedGenre = "";
@@ -149,13 +149,13 @@
         return { selectedDecade, selectedGenre };
     }
 
-    // Function to display a single random album image
+    // display a single random album image from the category
     function displayImage() {
         const charInput1 = document.getElementById("charInput1").value.toUpperCase();
         const charInput2 = document.getElementById("charInput2").value.toUpperCase();
         const imageContainer = document.getElementById("imageContainer");
 
-        // Validate input (must be a single A-Z character for both inputs)
+        // must be a single A-Z character for both inputs
         if (!/^[A-Z]$/.test(charInput1) || !/^[A-Z]$/.test(charInput2)) {
             imageContainer.innerHTML = `<img src="assets/error.png" class="album-image" alt="Error: Invalid input">`;
             return;
@@ -167,10 +167,10 @@
             const albums = albumData[selectedDecade]?.[selectedGenre];
 
             if (albums && albums.length > 0) {
-                // Pick a random album from the matching group
+                // album from the matching group
                 const randomAlbum = albums[Math.floor(Math.random() * albums.length)];
 
-                // Display only one random album
+                // only one random album
                 imageContainer.innerHTML = `
                     <img src="${randomAlbum.image}" alt="${randomAlbum.album} by ${randomAlbum.artist}" class="album-image">
                 `;
