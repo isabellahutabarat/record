@@ -1,87 +1,116 @@
-          
-    //default image and background
-    window.onload = function() {
-        const body = document.body;
-        const defaultGradient = "linear-gradient(179deg, #000 0.77%, #484848 140.19%)"; // Example gradient
-        body.style.background = defaultGradient;
+//default image and background
+const defaultGradient = "linear-gradient(179deg, #000 0.77%, #484848 140.19%)";
+
+window.onload = function() {
+    const body = document.body;
+    body.style.background = defaultGradient;
+
+    const imageContainer = document.getElementById("imageContainer");
+    imageContainer.innerHTML = `<img src="assets/default.png" alt="Default Album" class="album-image">`;
+};
+
+function updateBackground(gradient) {
+    const body = document.body;
+    body.style.background = gradient;
+}
+
+///find the corresponding decade and genre
+function getDecadeGenre(input1, input2) {
+    let selectedDecade = "";
+    let selectedGenre = "";
+
+    for (let decade in decadeGroups) {
+        if (decadeGroups[decade].includes(input1)) {
+            selectedDecade = decade;
+            break;
+        }
+    }
+
+    for (let genre in genreGroups) {
+        if (genreGroups[genre].includes(input2)) {
+            selectedGenre = genre;
+            break;
+        }
+    }
+
+    return { selectedDecade, selectedGenre };
+}
+
+function resetAnimation(element) {
+    element.style.animation = 'none';
+    element.offsetHeight; // Trigger reflow
+    element.style.animation = null;
+}
+
+// display a single random album image from the category
+function displayImage() {
+    const charInput1 = document.getElementById("charInput1").value.toUpperCase();
+    const charInput2 = document.getElementById("charInput2").value.toUpperCase();
+    const statusMessage = document.getElementById("status");
+    const imageContainer = document.getElementById("imageContainer");
     
-        const imageContainer = document.getElementById("imageContainer");
-        imageContainer.innerHTML = `<img src="assets/default.png" alt="Default Album" class="album-image">`;
-        };
-
-    function updateBackground(gradient) {
-        const body = document.body
-        body.style.background = gradient;
+    // must be a single A-Z character for both inputs
+    if (!/^[A-Z]$/.test(charInput1) || !/^[A-Z]$/.test(charInput2)) {
+        handleError();
+        return;
     }
 
-    ///find the corresponding decade and genre
-    function getDecadeGenre(input1, input2) {
-        let selectedDecade = "";
-        let selectedGenre = "";
+    const { selectedDecade, selectedGenre } = getDecadeGenre(charInput1, charInput2);
 
-        for (let decade in decadeGroups) {
-            if (decadeGroups[decade].includes(input1)) {
-                selectedDecade = decade;
-                break;
-            }
-        }
+    if (selectedDecade && selectedGenre) {
+        const albums = albumData[selectedDecade]?.[selectedGenre];
 
-        for (let genre in genreGroups) {
-            if (genreGroups[genre].includes(input2)) {
-                selectedGenre = genre;
-                break;
-            }
-        }
+        if (albums && albums.length > 0) {
+            // album from the matching group
+            const randomAlbum = albums[Math.floor(Math.random() * albums.length)];
 
-        return { selectedDecade, selectedGenre };
-    }
+            // Reset animations for new content
+            const elements = [
+                imageContainer.querySelector('img'),
+                document.getElementById('albumTitle'),
+                document.getElementById('albumYear'),
+                document.getElementById('albumArtist')
+            ];
+            elements.forEach(resetAnimation);
 
+            // only one random album
+            imageContainer.innerHTML = `<img src="${randomAlbum.image}" alt="${randomAlbum.album} by ${randomAlbum.artist}" class="album-image">`;
+            statusMessage.textContent = "Now Playing";
+            
+            // Handle long album titles - break after two words
+            const albumTitle = randomAlbum.album;
+            const words = albumTitle.split(' ');
+            const formattedTitle = words.length > 2 
+                ? words.slice(0, 2).join(' ') + '\n' + words.slice(2).join(' ')
+                : albumTitle;
+            
+            document.getElementById('albumTitle').textContent = formattedTitle;
+            document.getElementById('albumArtist').textContent = randomAlbum.artist;
+            document.getElementById('albumYear').textContent = randomAlbum.year;
 
-    // display a single random album image from the category
-    function displayImage() {
-        const charInput1 = document.getElementById("charInput1").value.toUpperCase();
-        const charInput2 = document.getElementById("charInput2").value.toUpperCase();
-        const statusMessage = document.getElementById("status");
-        const imageContainer = document.getElementById("imageContainer");
-        
-        // must be a single A-Z character for both inputs
-        if (!/^[A-Z]$/.test(charInput1) || !/^[A-Z]$/.test(charInput2)) {
-            imageContainer.innerHTML = `<img src="assets/error1.png" class="album-image" alt="Error: Invalid input">`;
-            statusMessage.textContent = "No Music Found";
-            return;
-        }
-
-        const { selectedDecade, selectedGenre } = getDecadeGenre(charInput1, charInput2);
-
-        if (selectedDecade && selectedGenre) {
-            const albums = albumData[selectedDecade]?.[selectedGenre];
-
-            if (albums && albums.length > 0) {
-                // album from the matching group
-                const randomAlbum = albums[Math.floor(Math.random() * albums.length)];
-
-                // only one random album
-                imageContainer.innerHTML = `<img src="${randomAlbum.image}" alt="${randomAlbum.album} by ${randomAlbum.artist}" class="album-image">`;
-                statusMessage.textContent = "Now Playing";
-                
-                document.getElementById('albumTitle').textContent = randomAlbum.album;
-                document.getElementById('albumArtist').textContent = randomAlbum.artist;
-                document.getElementById('albumYear').textContent = randomAlbum.year;
-
-                // update background
-                updateBackground(randomAlbum.gradient);
-
-            } else {
-                imageContainer.innerHTML = `<img src="assets/error1.png" class="album-image" alt="No albums found">`;
-            }
-
-            updateBackground(randomAlbum.album);
+            // update background
+            updateBackground(randomAlbum.gradient);
         } else {
-            imageContainer.innerHTML = `<img src="assets/error1.png" class="album-image" alt="No albums found">`;
+            handleError();
         }
-       
-        }    
-          
+    } else {
+        handleError();
+    }
+}
+
+function handleError() {
+    const imageContainer = document.getElementById("imageContainer");
+    const statusMessage = document.getElementById("status");
+    
+    imageContainer.innerHTML = `<img src="assets/error1.png" class="album-image" alt="No albums found">`;
+    statusMessage.textContent = "No Music Found";
+    updateBackground(defaultGradient);
+    
+    // Clear all album information
+    document.getElementById('albumTitle').textContent = '';
+    document.getElementById('albumArtist').textContent = '';
+    document.getElementById('albumYear').textContent = '';
+}
 
           const albumData = {
             "1970s": {

@@ -4,6 +4,15 @@
     box-sizing: border-box;
 }
 
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
 body {
     background-color: #0E0D0D;
     font-family: neue-haas-grotesk-display, sans-serif;
@@ -14,6 +23,7 @@ body {
     justify-content: flex-start;
     height: 100vh;
     padding: 0;
+    transition: background 0.5s ease;
 }
 
 .header {
@@ -22,60 +32,104 @@ body {
     width: 100vw;
     display: flex;
     justify-content: space-between;
-    padding: 1rem 2rem;
+    padding: 1rem;
     background-color: #ffffff00; 
     z-index: 1000; 
 }
-
 
 .input-container {
     padding-top: 1rem;
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    gap: 0;
+    position: relative;
+}
+
+.inputs {
+    display: flex;
+    background: #FFF;
+    border-radius: 50px;
+    width: 25rem;
+    height: 3rem;
+    position: relative;
+    overflow: hidden;
+}
+
+#charInput1 {
+    width: 50%;
+    height: 100%;
+    background: #FFF;
+    border: none;
+    font-size: 1.25rem;
+    text-align: center;
+    padding: 0;
+    color: #000;
+}
+
+#charInput2 {
+    width: 50%;
+    height: 100%;
+    background: #000;
+    border: 1px solid #FFF;
+    border-radius: 0 50px 50px 0;
+    font-size: 1.25rem;
+    text-align: center;
+    padding: 0;
+    color: #FFF;
+    margin-right: -1px;
+}
+
+#charInput1::placeholder {
+    color: #000;
+    opacity: 0.5;
+}
+
+#charInput2::placeholder {
+    color: #FFF;
+    opacity: 0.5;
+}
+
+#charInput1:focus, #charInput2:focus {
+    outline: none;
+}
+
+#charInput2:hover {
+    opacity: 0.8;
+}
+
+#charInput1:hover {
+    background-color: #9c9c9c;
 }
 
 .title {
-    flex: start;
-    color: #FFF;
+    position: absolute;
+    left: 2rem;
+    color: white;
     font-size: 1.25rem;
-    color: #FFF;
     font-weight: 450;
 }
 
-
-.input-container button {
-    flex: end;
-    text-align: end;
-}
-
-
-#charInput1, #charInput2 {
-    padding: 0.5rem;
-    font-size: 1.25rem;
-    text-align: center;
-    border-radius: 1.5rem;
-    border: 1px solid #ccc;
-    width: 9.125rem;
-    flex: center;
-}
-
-
 #submitButton {
-    padding: 0.5rem 1rem;
-    font-size: 1.25rem;
-    border-radius: 2rem;
-    border: 1px solid #ccc;
-    background-color: #333;
+    position: absolute;
+    right: 2rem;
+    background: #000;
+    border: 1px solid #FFF;
+    border-radius: 50%;
     color: white;
     cursor: pointer;
+    font-size: 1.25rem;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #submitButton:hover {
-    background-color: #555;
+    opacity: 0.8;
 }
-
 
 #status {
     color: #D7D6D6;
@@ -90,27 +144,36 @@ body {
 }
 
 .album-image {
-    width: 55rem;
+    width: 50rem;
     object-fit: contain;
     align-self: center;
+    animation: fadeIn 0.5s ease-in;
 }
 
 .name-and-year {
-    display: flex;
+    position: fixed;
+    bottom: 5rem;
+    left: 0;
     width: 100vw;
+    display: flex;
     justify-content: space-between;
-    padding-left: 2rem;
-    padding-right: 2rem;
-    background-color: #ffffff00; 
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+    background-color: #ffffff00;
+    align-items: flex-end;
 }
 
-
 .albumTitle {
-    font-style: italic;
+    font-style: normal;
     color: #FFF;
     font-size: 3.125rem;
-    font-weight: 500;
-    line-height: normal;
+    font-weight: 600;
+    line-height: 3.125rem;
+    max-width: 50%;
+    word-wrap: break-word;
+    white-space: pre-line;
+    margin-bottom: 1rem;
+    animation: fadeIn 0.5s ease-in;
 }
 
 .albumYear {
@@ -118,28 +181,47 @@ body {
     text-align: right;
     font-size: 3.125rem;
     font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-}
-
-.albumTitle {
-    font-style: italic;
+    font-weight: 600;
+    line-height: 3.125rem;
+    margin-bottom: 1rem;
+    animation: fadeIn 0.5s ease-in;
 }
 
 .artist {
-    display: flex;
-    flex: start;
-    padding-left: 2rem;
+    position: fixed;
+    bottom: 4rem;
+    left: 2.5rem;
     color: #FFF;
     font-size: 1.25rem;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    animation: fadeIn 0.5s ease-in;
 }
 
 .controls {
+    position: fixed;
+    bottom: 2rem;
+    left: 0;
+    width: 100vw;
+    padding-left: 30rem;
+    padding-right: 30rem;
     display: flex;
     justify-content: center;
+    justify-content: space-between;
+}
+
+#prevBtn, #playPauseBtn, #nextBtn {
+    background: none;
+    border: none;
+    color: #FFF;
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+#prevBtn:hover, #playPauseBtn:hover, #nextBtn:hover {
+    opacity: 0.8;
 }
 
 /* Media query for mobile screens */
@@ -164,5 +246,17 @@ body {
     #submitButton {
         font-size: 1.5rem;
         padding: 0.5rem 2rem;
+    }
+
+    .name-and-year {
+        bottom: 8rem;
+    }
+    
+    .artist {
+        bottom: 4rem;
+    }
+    
+    .controls {
+        bottom: 1rem;
     }
 }
