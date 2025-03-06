@@ -1,4 +1,19 @@
           
+    //default image and background
+    window.onload = function() {
+        const body = document.body;
+        const defaultGradient = "linear-gradient(179deg, #000 0.77%, #484848 140.19%)"; // Example gradient
+        body.style.background = defaultGradient;
+    
+        const imageContainer = document.getElementById("imageContainer");
+        imageContainer.innerHTML = `<img src="assets/default.png" alt="Default Album" class="album-image">`;
+        };
+
+    function updateBackground(gradient) {
+        const body = document.body
+        body.style.background = gradient;
+    }
+
     ///find the corresponding decade and genre
     function getDecadeGenre(input1, input2) {
         let selectedDecade = "";
@@ -21,11 +36,6 @@
         return { selectedDecade, selectedGenre };
     }
 
-    function updateBackground(gradient) {
-        const body = document.body
-        body.style.background = gradient;
-    }
-
 
     // display a single random album image from the category
     function displayImage() {
@@ -36,7 +46,7 @@
         
         // must be a single A-Z character for both inputs
         if (!/^[A-Z]$/.test(charInput1) || !/^[A-Z]$/.test(charInput2)) {
-            imageContainer.innerHTML = `<img src="assets/error.png" class="album-image" alt="Error: Invalid input">`;
+            imageContainer.innerHTML = `<img src="assets/error1.png" class="album-image" alt="Error: Invalid input">`;
             statusMessage.textContent = "No Music Found";
             return;
         }
@@ -58,12 +68,12 @@
                 updateBackground(randomAlbum.gradient);
 
             } else {
-                imageContainer.innerHTML = `<img src="assets/error.png" class="album-image" alt="No albums found">`;
+                imageContainer.innerHTML = `<img src="assets/error1.png" class="album-image" alt="No albums found">`;
             }
 
             updateBackground(randomAlbum.album);
         } else {
-            imageContainer.innerHTML = `<img src="assets/error.png" class="album-image" alt="No albums found">`;
+            imageContainer.innerHTML = `<img src="assets/error1.png" class="album-image" alt="No albums found">`;
         }
        
         }    
