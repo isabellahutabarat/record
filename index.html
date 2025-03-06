@@ -13,19 +13,38 @@
     <header class="header">
         <div class="input-container">
             <div class="title">FMX</div>
-            <div>
+            <div class="inputs">
                 <input type="text" id="charInput1" maxlength="1" placeholder="DECADE">
                 <input type="text" id="charInput2" maxlength="1" placeholder="GENRE">
             </div>
-            <div><button onclick="displayImage()" id="submitButton">play</button></div>
+            <div>
+                <button onclick="displayImage(),updateBackground()" id="submitButton">/||</button>
+            </div>
         </div>
     </header>
-   
+
+    <div id="status"></div>
 
     <!-- Image to display -->
     <div id="imageContainer">
     </div>
     
+    <div class="album/year">
+        <div>
+            <p id="albumTitle"></p>
+            <p id="albumYear"></p>
+        </div>
+        <div>
+            <p id="albumArtist"></p>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button id="prevBtn">⏮</button>
+        <button id="playPauseBtn">⏸</button>
+        <button id="nextBtn">⏭</button>
+    </div>
+
 
     <script src="script.js"></script>
 
