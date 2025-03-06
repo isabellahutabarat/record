@@ -112,6 +112,76 @@ function handleError() {
     document.getElementById('albumYear').textContent = '';
 }
 
+let currentAudio = null;
+
+function updateContent(data) {
+    // Reset animations by removing and re-adding elements
+    const imageContainer = document.getElementById('imageContainer');
+    const nameAndYear = document.querySelector('.name-and-year');
+    const artist = document.querySelector('.artist');
+    
+    // Remove existing elements
+    imageContainer.innerHTML = '';
+    nameAndYear.innerHTML = '';
+    artist.innerHTML = '';
+    
+    // Create and add new elements with animations
+    const img = document.createElement('img');
+    img.src = data.image;
+    img.alt = 'Album Cover';
+    img.className = 'album-image';
+    imageContainer.appendChild(img);
+    
+    const title = document.createElement('div');
+    title.className = 'albumTitle';
+    title.textContent = data.name;
+    
+    const year = document.createElement('div');
+    year.className = 'albumYear';
+    year.textContent = data.year;
+    
+    nameAndYear.appendChild(title);
+    nameAndYear.appendChild(year);
+    
+    const artistElement = document.createElement('div');
+    artistElement.textContent = data.artist;
+    artist.appendChild(artistElement);
+
+    // Handle audio
+    if (currentAudio) {
+        currentAudio.pause();
+    }
+    const audio = document.getElementById('albumAudio');
+    audio.src = data.songUrl; // You'll need to add songUrl to your data objects
+    currentAudio = audio;
+    updatePlayPauseButton();
+}
+
+const playPauseBtn = document.getElementById('playPauseBtn');
+playPauseBtn.addEventListener('click', togglePlayPause);
+
+function togglePlayPause() {
+    const audio = document.getElementById('albumAudio');
+    if (!audio.src) return;
+
+    if (audio.paused) {
+        audio.play();
+    } else {
+        audio.pause();
+    }
+    updatePlayPauseButton();
+}
+
+function updatePlayPauseButton() {
+    const audio = document.getElementById('albumAudio');
+    playPauseBtn.textContent = audio.paused ? '▶' : '⏸';
+}
+
+// Add event listeners for audio
+document.getElementById('albumAudio').addEventListener('ended', () => {
+    updatePlayPauseButton();
+});
+
           const albumData = {
             "1970s": {
               "Rock": [

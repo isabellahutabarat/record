@@ -51,8 +51,8 @@ body {
     display: flex;
     background: #FFF;
     border-radius: 50px;
-    width: 25rem;
-    height: 3rem;
+    width: 20rem;
+    height: 2.5rem;
     position: relative;
     overflow: hidden;
 }
@@ -62,7 +62,7 @@ body {
     height: 100%;
     background: #FFF;
     border: none;
-    font-size: 1.25rem;
+    font-size: 1rem;
     text-align: center;
     padding: 0;
     color: #000;
@@ -74,7 +74,7 @@ body {
     background: #000;
     border: 1px solid #FFF;
     border-radius: 0 50px 50px 0;
-    font-size: 1.25rem;
+    font-size: 1rem;
     text-align: center;
     padding: 0;
     color: #FFF;
@@ -107,7 +107,7 @@ body {
     position: absolute;
     left: 2rem;
     color: white;
-    font-size: 1.25rem;
+    font-size: 1rem;
     font-weight: 450;
 }
 
@@ -119,9 +119,9 @@ body {
     border-radius: 50%;
     color: white;
     cursor: pointer;
-    font-size: 1.25rem;
-    width: 3rem;
-    height: 3rem;
+    font-size: 1rem;
+    width: 2.5rem;
+    height: 2.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -204,11 +204,8 @@ body {
     bottom: 2rem;
     left: 0;
     width: 100vw;
-    padding-left: 30rem;
-    padding-right: 30rem;
     display: flex;
     justify-content: center;
-    justify-content: space-between;
 }
 
 #prevBtn, #playPauseBtn, #nextBtn {
@@ -224,39 +221,138 @@ body {
     opacity: 0.8;
 }
 
+#playPauseBtn {
+    background: none;
+    border: none;
+    color: #FFF;
+    font-size: 3.125rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    position: fixed;
+    bottom: 4rem;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#playPauseBtn:hover {
+    opacity: 0.8;
+}
+
 /* Media query for mobile screens */
 @media screen and (max-width: 430px) {
-    .album-image {
-        width: 22.4375rem;
-        height: 18.3125rem;
-        margin-top: 8rem;
+    .header {
+        padding: 0.5rem;
     }
 
     .input-container {
-        flex-direction: column;
-        text-align: center;
+        padding-top: 0.5rem;
+    }
+
+    .inputs {
+        width: 15rem;
+        height: 2rem;
     }
 
     #charInput1, #charInput2 {
-        width: 3rem;
-        height: 3rem;
-        font-size: 2rem;
+        font-size: 0.875rem;
+    }
+
+    .title {
+        left: 1.5rem;
+        font-size: 1rem;
     }
 
     #submitButton {
+        right: 1.5rem;
+        width: 2rem;
+        height: 2rem;
+        font-size: 1rem;
+    }
+
+    #imageContainer {
+        margin-top: 3rem;
+        margin-bottom: 3rem;
+        height: 45vh;
+        display: flex;
+        align-items: center;
+    }
+
+    .album-image {
+        margin-top: 15rem;
+        width: 30rem;
+        height: auto;
+    }
+
+    .name-and-year {
+        bottom: 11rem;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+
+    .albumTitle {
+        font-size: 1.75rem;
+        line-height: 1.75rem;
+    }
+
+    .albumYear {
+        font-size: 1.75rem;
+        line-height: 1.75rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .artist {
+        bottom: 10.5rem;
+        left: 1.5rem;
+        font-size: 1rem;
+    }
+
+    .controls {
+        bottom: 7rem;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+
+    #prevBtn, #playPauseBtn, #nextBtn {
         font-size: 1.5rem;
-        padding: 0.5rem 2rem;
+    }
+
+    #playPauseBtn {
+        position: static;
+        font-size: 2rem;
+        transform: none;
+    }
+}
+
+/* Additional breakpoint for even smaller screens */
+@media screen and (max-width: 350px) {
+    .inputs {
+        width: 12rem;
+    }
+
+    #imageContainer {
+        height: 40vh;
+    }
+
+    .album-image {
+        width: 16rem;
+    }
+
+    .albumTitle, .albumYear {
+        font-size: 1.5rem;
+        line-height: 1.5rem;
     }
 
     .name-and-year {
         bottom: 8rem;
     }
-    
+
     .artist {
-        bottom: 4rem;
+        bottom: 6.5rem;
     }
-    
+
     .controls {
-        bottom: 1rem;
+        bottom: 4rem;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
     }
 }
