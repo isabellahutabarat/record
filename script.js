@@ -7,10 +7,6 @@ window.onload = function() {
 
     const imageContainer = document.getElementById("imageContainer");
     imageContainer.innerHTML = `<img src="assets/default.png" alt="Default Album" class="album-image">`;
-    
-    // Hide play/pause button on load
-    const playPauseBtn = document.getElementById('playPauseBtn');
-    playPauseBtn.classList.remove('visible');
 };
 
 function updateBackground(gradient) {
@@ -52,7 +48,6 @@ function displayImage() {
     const charInput2 = document.getElementById("charInput2").value.toUpperCase();
     const statusMessage = document.getElementById("status");
     const imageContainer = document.getElementById("imageContainer");
-    const playPauseBtn = document.getElementById('playPauseBtn');
     
     // must be a single A-Z character for both inputs
     if (!/^[A-Z]$/.test(charInput1) || !/^[A-Z]$/.test(charInput2)) {
@@ -107,7 +102,6 @@ function displayImage() {
                 console.log("Audio playback failed:", error);
             });
             updatePlayPauseButton();
-            playPauseBtn.classList.add('visible'); // Show the button
         } else {
             handleError();
         }
@@ -119,7 +113,6 @@ function displayImage() {
 function handleError() {
     const imageContainer = document.getElementById("imageContainer");
     const statusMessage = document.getElementById("status");
-    const playPauseBtn = document.getElementById('playPauseBtn');
     
     imageContainer.innerHTML = `<img src="assets/error1.png" class="album-image" alt="No albums found">`;
     statusMessage.textContent = "No Music Found";
@@ -136,7 +129,6 @@ function handleError() {
         currentAudio = null;
     }
     updatePlayPauseButton();
-    playPauseBtn.classList.remove('visible'); // Hide the button
 }
 
 let currentAudio = null;
