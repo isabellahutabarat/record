@@ -64,6 +64,10 @@
                 imageContainer.innerHTML = `<img src="${randomAlbum.image}" alt="${randomAlbum.album} by ${randomAlbum.artist}" class="album-image">`;
                 statusMessage.textContent = "Now Playing";
                 
+                document.getElementById('albumTitle').textContent = randomAlbum.album;
+                document.getElementById('albumArtist').textContent = randomAlbum.artist;
+                document.getElementById('albumYear').textContent = randomAlbum.year;
+
                 // update background
                 updateBackground(randomAlbum.gradient);
 

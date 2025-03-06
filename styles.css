@@ -12,7 +12,6 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: center;
     height: 100vh;
     padding: 0;
 }
@@ -82,25 +81,78 @@ body {
     color: #D7D6D6;
     font-size: 0.9375rem;
     font-weight: 450;
+    text-align: center;
+}
+
+#imageContainer {
+    display: flex;
+    justify-content: center;
 }
 
 .album-image {
-    width: 60rem;
+    width: 55rem;
     object-fit: contain;
     align-self: center;
 }
 
+.name-and-year {
+    display: flex;
+    width: 100vw;
+    justify-content: space-between;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    background-color: #ffffff00; 
+}
+
+
+.albumTitle {
+    font-style: italic;
+    color: #FFF;
+    font-size: 3.125rem;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.albumYear {
+    color: #FFF;
+    text-align: right;
+    font-size: 3.125rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.albumTitle {
+    font-style: italic;
+}
+
+.artist {
+    display: flex;
+    flex: start;
+    padding-left: 2rem;
+    color: #FFF;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+}
+
 /* Media query for mobile screens */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 430px) {
     .album-image {
-        width: 27.4375rem;
+        width: 22.4375rem;
         height: 18.3125rem;
         margin-top: 8rem;
     }
 
     .input-container {
         flex-direction: column;
-        align-items: center;
+        text-align: center;
     }
 
     #charInput1, #charInput2 {
