@@ -7,6 +7,10 @@ window.onload = function() {
 
     const imageContainer = document.getElementById("imageContainer");
     imageContainer.innerHTML = `<img src="assets/default.png" alt="Default Album" class="album-image">`;
+    
+    // Hide play/pause button on load
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    playPauseBtn.classList.remove('visible');
 };
 
 function updateBackground(gradient) {
@@ -48,6 +52,7 @@ function displayImage() {
     const charInput2 = document.getElementById("charInput2").value.toUpperCase();
     const statusMessage = document.getElementById("status");
     const imageContainer = document.getElementById("imageContainer");
+    const playPauseBtn = document.getElementById('playPauseBtn');
     
     // must be a single A-Z character for both inputs
     if (!/^[A-Z]$/.test(charInput1) || !/^[A-Z]$/.test(charInput2)) {
@@ -102,6 +107,7 @@ function displayImage() {
                 console.log("Audio playback failed:", error);
             });
             updatePlayPauseButton();
+            playPauseBtn.classList.add('visible'); // Show the button
         } else {
             handleError();
         }
@@ -113,6 +119,7 @@ function displayImage() {
 function handleError() {
     const imageContainer = document.getElementById("imageContainer");
     const statusMessage = document.getElementById("status");
+    const playPauseBtn = document.getElementById('playPauseBtn');
     
     imageContainer.innerHTML = `<img src="assets/error1.png" class="album-image" alt="No albums found">`;
     statusMessage.textContent = "No Music Found";
@@ -129,6 +136,7 @@ function handleError() {
         currentAudio = null;
     }
     updatePlayPauseButton();
+    playPauseBtn.classList.remove('visible'); // Hide the button
 }
 
 let currentAudio = null;
@@ -292,7 +300,7 @@ document.getElementById('albumAudio').addEventListener('ended', () => {
                 { album: "Good Kid, M.A.A.D City", artist: "Kendrick Lamar", year: 2012, image: "assets/2012-good-kid-maad-city-kendrick-lamar.png", gradient: "linear-gradient(180deg, #51685A 33%, #305D74 100%)", songUrl: "audio/good-kid.mp3" },
                 { album: "Doris", artist: "Earl Sweatshirt", year: 2013, image: "assets/2013-doris-earl-sweatshirt.png", gradient: "linear-gradient(180deg, #B0B051 28.05%, #4E4E4B 98.3%)", songUrl: "audio/Molasses.mp3" },
                 { album: "If You're Reading This It's Too Late", artist: "Drake", year: 2015, image: "assets/2015-if-youre-reading-this-its-too-late.png", gradient: "linear-gradient(128deg, #6F7272 33.61%, #BCBCBC 83.41%)", songUrl: "audio/6pm-in-new-york.mp3" },
-                { album: "Die Lit", artist: "Playboi Carti", year: 2018, image: "assets/2018-die-lit-playboi-carti.png", gradient: "linear-gradient(180deg, #060606 18.15%, #1E1E1E 100%)", songUrl: "audio/die-lit.mp3" },
+                { album: "Die Lit", artist: "Playboi Carti", year: 2018, image: "assets/2018-die-lit-playboi-carti.png", gradient: "linear-gradient(180deg, #060606 18.15%, #1E1E1E 100%)", songUrl: "audio/old-money.mp3" },
                 { album: "When I Get Lost", artist: "Solange", year: 2019, image: "assets/2019-when-i-get-home-solange.png", gradient: "linear-gradient(113deg, #694E48 46.63%, #C8C2AF 94.27%)", songUrl: "audio/almeda.mp3" }
               ]
             },
